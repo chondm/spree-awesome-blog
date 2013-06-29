@@ -1,6 +1,6 @@
 class Spree::Comment < ActiveRecord::Base
   belongs_to :post, class_name: 'Spree::Post', foreign_key: 'post_id'
-  belongs_to :user, class_name: 'Spree::User', foreign_key: 'user_id'
+  belongs_to :user, class_name: Spree.user_class.to_s, foreign_key: 'user_id'
 
   before_save :check_approved
   before_save :check_user, if: :user
