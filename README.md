@@ -86,6 +86,6 @@ Copyright (c) 2013 Josh Nussbaum, Tobias Bohwalli, released under the [New BSD L
 [2]: http://www.fsf.org/licensing/essays/free-sw.html
 [3]: https://github.com/futhr/spree-awesome-blog/issues
 [4]: https://localeapp.com
-[4]: https://github.com/thoughtbot/guides
+[5]: https://github.com/thoughtbot/guides
 [6]: https://github.com/futhr/spree-awesome-blog/tree/master/LICENSE
 [7]: http://jbt.github.io/markdown-editor
