@@ -1,5 +1,5 @@
 class ActsAsTaggableOnMigration < ActiveRecord::Migration
-  def self.up
+  def up
     create_table :tags do |t|
       t.string :name
     end
@@ -9,8 +9,8 @@ class ActsAsTaggableOnMigration < ActiveRecord::Migration
 
       # You should make sure that the column created is
       # long enough to store the required class names.
-      t.references :taggable, :polymorphic => true
-      t.references :tagger, :polymorphic => true
+      t.references :taggable, polymorphic: true
+      t.references :tagger, polymorphic: true
 
       t.string :context
 
@@ -21,7 +21,7 @@ class ActsAsTaggableOnMigration < ActiveRecord::Migration
     add_index :taggings, [:taggable_id, :taggable_type, :context]
   end
 
-  def self.down
+  def down
     drop_table :taggings
     drop_table :tags
   end

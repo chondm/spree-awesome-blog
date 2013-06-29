@@ -1,29 +1,21 @@
-require "spree_awesome_blog"
-
 module SpreeAwesomeBlog
-
   class Engine < Rails::Engine
+    require 'spree/core'
+    isolate_namespace Spree
+    engine_name 'spree_awesome_blog'
+
+    config.autoload_paths += %W(#{config.root}/lib)
+
+    config.generators do |g|
+      g.test_framework :rspec
+    end
 
     def self.activate
-      Spree::BaseHelper.module_eval do
-        def link_to_rss 
-          tag(:link,
-            :rel => 'alternate',
-            :type => "application/rss+xml", 
-            :title => Spree::Config[:blog_title] || "#{Spree::Config[:site_name]} Blog",
-            :href =>  posts_path(:format => :rss))
-        end
-
-        def markdown(text)
-          sanitize(RDiscount.new(text).to_html)
-        end
+      Dir.glob(File.join(File.dirname(__FILE__), '../../app/**/*_decorator*.rb')) do |c|
+        Rails.configuration.cache_classes ? require(c) : load(c)
       end
-      
     end
-    
-    config.root = (Pathname.new(File.dirname(File.expand_path(__FILE__))) + "../../").to_s
+
     config.to_prepare &method(:activate).to_proc
-
   end
-
 end

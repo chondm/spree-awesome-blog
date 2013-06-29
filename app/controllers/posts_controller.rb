@@ -1,4 +1,4 @@
-class PostsController < Spree::BaseController
+class Spree::PostsController < Spree::StoreController
   before_filter :load_tag_cloud, :load_dates
 
   def index
@@ -7,26 +7,27 @@ class PostsController < Spree::BaseController
     @month = params[:month]
     @day   = params[:day]
 
-    @posts = @year ? Post.by_date(@year.to_i, @month.try(:to_i), @day.try(:to_i)) : Post
+    @posts = @year ? Spree::Post.by_date(@year.to_i, @month.try(:to_i), @day.try(:to_i)) : Spree::Post
     @posts = @posts.published
     @posts = @posts.tagged_with(@tag) if @tag
 
     respond_to do |format|
-      format.html { @posts = @posts.paginate(:page => params[:page], :per_page => 10) }
+      format.html { @posts = @posts.paginate(page: params[:page], per_page: 10) }
       format.rss
     end
   end
 
   def show
-    @post = Post.published.find_by_permalink(params[:id])
+    @post = Spree::Post.published.find_by_permalink(params[:id])
   end
 
-protected
+  protected
+
   def load_tag_cloud
-    @tags = Post.tag_counts_on(:tags)
+    @tags = Spree::Post.tag_counts_on(:tags)
   end
 
   def load_dates
-    @dates = Post.group_dates
+    @dates = Spree::Post.group_dates
   end
 end

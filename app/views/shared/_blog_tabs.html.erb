@@ -1,4 +1,4 @@
-<h1><%= raw(t("editing_post") + " &ldquo;#{@post.title}&rdquo;") %></h1>
+<h1><%= raw "#{Spree.t(:editing_post)} &ldquo;#{@post.title}&rdquo;" %></h1>
 
 <% content_for :sidebar do %>
 
@@ -6,20 +6,19 @@
   <br class="clear" />
 
   <ul class="sidebar post-menu">
-    <%= hook :admin_post_tabs, {:current => current} do %>
+    <%= hook :admin_post_tabs, current: current do %>
 
       <li<%= raw(' class="active"') if current == "Post" %>>
-      <%= link_to t("post"), edit_admin_post_path(@post) %>
+      <%= link_to Spree.t(:post), edit_admin_post_path(@post) %>
       </li>
       <li<%= raw(' class="active"') if current == "Images" %>>
-      <%= link_to "#{t("images")} (#{@post.images.count})", admin_post_images_path(@post) %>
+      <%= link_to "#{Spree.t(:images)} (#{@post.images.count})", admin_post_images_path(@post) %>
       </li>
       <li<%= raw(' class="active"') if current == "Comments" %>>
-      <%= link_to "#{t("comments")} (#{@post.comments.count})",  admin_post_comments_path(@post)  %>
+      <%= link_to "#{Spree.t(:comments)} (#{@post.comments.count})", admin_post_comments_path(@post) %>
       </li>
     <% end %>
   </ul>
   <br class="clear" />
 
 <% end %>
-

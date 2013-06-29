@@ -1,12 +1,12 @@
-<%= form_for comment, :url => post_comments_path(post) do |f| %>
-  <%= render "shared/error_messages", :target => f.object %>
+<%= form_for comment, url: post_comments_path(post) do |f| %>
+  <%= render 'spree/shared/error_messages', target: f.object %>
   <p>
-    <%= f.label :name, t('your_name') %><span class="required">*</span>
+    <%= f.label :name, Spree.t(:your_name) %><span class="required">*</span>
     <br/>
     <%= f.text_field :name %>
   </p>
   <p>
-    <%= f.label :email, t('your_email') %><span class="required">*</span> 
+    <%= f.label :email, Spree.t(:your_email) %><span class="required">*</span>
     <br/>
     <% if current_user %>
       <%= current_user.email %>
@@ -14,17 +14,17 @@
       <%= f.text_field :email %>
     <% end %>
     <br/>
-    <span class="small"><%= t('not_shared') %></span>
+    <span class="small"><%= Spree.t(:not_shared) %></span>
   </p>
   <p>
-    <%= f.label :url, t('your_website') %>
+    <%= f.label :url, Spree.t(:your_website) %>
     <br/>
     <%= f.text_field :url %>
   </p>
   <p>
-    <%= f.label :message, t('message') %> <span class="required">*</span>
+    <%= f.label :message, Spree.t(:message) %> <span class="required">*</span>
     <br/>
     <%= f.text_area :message %>
   </p>
-  <%= f.submit t('post_comment'), :class=>'button' %>
+  <%= f.submit Spree.t(:post_comment), :class => 'button' %>
 <% end %>

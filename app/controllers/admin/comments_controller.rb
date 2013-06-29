@@ -1,31 +1,36 @@
-class Admin::CommentsController < Admin::BaseController
-  resource_controller
-
+class Spree::Admin::CommentsController < Spree::Admin::ResourceController
   helper 'spree/base'
 
-  update.response do |format|
-    format.html { redirect_to admin_comments_path }
+  def update
+    respond_to do |format|
+      format.html { redirect_to admin_comments_path }
+    end
   end
-  create.response do |format|
-    format.html { redirect_to edit_admin_comments_path(@comments) }
+
+  def create
+    respond_to do |format|
+      format.html { redirect_to edit_admin_comments_path(@comments) }
+    end
   end
-private
+
+  private
+
   def collection
     return @collection if @collection
 
-    @collection = Comment
+    @collection = Spree::Comment
     if params[:post_id]
-      @post = Post.find_by_permalink(params[:post_id])
+      @post = Spree::Post.find_by_permalink(params[:post_id])
       @collection = @post.comments
     end
 
-    @collection = @collection.paginate(:page => params[:page], :per_page => 10)
+    @collection = @collection.paginate(page: params[:page], per_page: 10)
   end
 
   def object
     return @object if @object
 
-    @object = Comment.find_by_id(params[:id])
+    @object = Spree::Comment.find_by_id(params[:id])
     @object.approved = params[:comment][:approved] if params[:comment] && params[:comment].key?(:approved)
     @object
   end

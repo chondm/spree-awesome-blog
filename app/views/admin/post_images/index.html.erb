@@ -1,12 +1,12 @@
-<%= render :partial => 'shared/blog_sub_menu' %>
+<%= render 'shared/blog_sub_menu' %>
 
-<%= render :partial => 'shared/blog_tabs', :locals => {:current => "Images"} %>
+<%= render 'shared/blog_tabs', current: 'Images' %>
 
 <table class="index">
   <tr>
-    <th><%= t("thumbnail") %></th>
-    <th><%= t("alt_text") %></th>
-    <th><%= t("action") %></th>
+    <th><%= Spree.t(:thumbnail) %></th>
+    <th><%= Spree.t(:alt_text) %></th>
+    <th><%= Spree.t(:action) %></th>
   </tr>
 
   <% @parent_object.images.each do |image| %>
@@ -14,9 +14,9 @@
       <td><%= link_to(image_tag(image.attachment.url(:mini)), image.attachment.url(:product)) %></td>
       <td><%= image.alt %></td>
       <td class="actions">
-        <%= link_to_with_icon('edit', t("edit"), edit_admin_post_image_url(@post, image)) %>
+        <%= link_to_with_icon('edit', Spree.t(:edit), edit_admin_post_image_url(@post, image)) %>
         &nbsp;
-        <%= link_to_delete image, {:url => admin_post_image_url(@post, image) }%>
+        <%= link_to_delete image, {url: admin_post_image_url(@post, image) } %>
       </td>
     </tr>
   <% end %>
@@ -26,19 +26,24 @@
 <div id="images"></div>
 <br/>
 <p>
-    <%= link_to icon('add') + ' ' + t("new_image"), new_admin_post_image_url(@post), :id => "new_image_link" %>
+  <%= link_to icon('add') + ' ' + Spree.t(:new_image), new_admin_post_image_url(@post), id: 'new_image_link' %>
 </p>
 
 <% content_for :head do %>
-  <script type="text/javascript">
-    jQuery(document).ready(function(){
-
-      jQuery('#new_image_link').click(function (event) {
-        event.preventDefault();
-        jQuery(this).hide();
-        jQuery.ajax({type: 'GET', url: this.href, data: ({authenticity_token: AUTH_TOKEN}), success: function(r){ jQuery('#images').html(r);} });
+  <script>
+    jQuery(document).ready(function() {
+      $('#new_image_link').on('click', function (e) {
+        e.preventDefault();
+        $(this).hide();
+        $.ajax({
+          type: 'GET',
+          url: this.href,
+          data: ({ authenticity_token: AUTH_TOKEN }),
+          success: function(r) {
+            $('#images').html(r);
+          }
+        });
       });
-
     });
   </script>
 <% end %>

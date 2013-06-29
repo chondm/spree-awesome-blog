@@ -1,6 +1,6 @@
 class CreatePosts < ActiveRecord::Migration
-  def self.up
-    create_table :posts do |t|
+  def up
+    create_table :spree_posts do |t|
       t.string :title
       t.string :permalink
       t.text :summary
@@ -15,7 +15,7 @@ class CreatePosts < ActiveRecord::Migration
     end
   end
 
-  def self.down
-    drop_table :posts
+  def down
+    drop_table :spree_posts
   end
 end

@@ -1,19 +1,27 @@
-class Admin::PostsController < Admin::BaseController
-  resource_controller
-
+class Spree::Admin::PostsController < Spree::Admin::ResourceController
   helper 'spree/base'
 
-  new_action.response do |format|
-    format.html {render :action => :new, :layout => false}
+  def new_action
+    respond_to do |format|
+      format.html { render action: :new, layout: false }
+    end
   end
-  update.response do |format|
-    format.html { redirect_to admin_posts_path }
+
+  def update
+    respond_to do |format|
+      format.html { redirect_to admin_posts_path }
+    end
   end
-  create.response do |format|
-    format.html { redirect_to edit_admin_posts_path(@posts) }
+
+  def create
+    respond_to do |format|
+      format.html { redirect_to edit_admin_posts_path(@posts) }
+    end
   end
-private
+
+  private
+
   def collection
-    @collection ||= Post.paginate(:page => params[:page], :per_page => 10)
+    @collection ||= Spree::Post.paginate(page: params[:page], per_page: 10)
   end
 end

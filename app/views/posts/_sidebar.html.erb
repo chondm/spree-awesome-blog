@@ -1,4 +1,4 @@
-<h2><%= t('blog_archive') %></h2>
+<h2><%= Spree.t(:blog_archive) %></h2>
 <div id="blog-archive">
   <ul class="years">
     <% @dates.each do |year, months| %>
@@ -25,10 +25,10 @@
   .find('ul:not(.years)')
     .slideUp()
     .end()
-  .find('span').click(function() {
+  .find('span').on('click', function() {
     $(this).find('+ul').slideToggle('slow');
   });
 <% end %>
 
-<h2><%= t('tags') %></h2>
+<h2><%= Spree.t(:tags) %></h2>
 <%= render 'tag_cloud' %>

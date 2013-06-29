@@ -1,23 +1,24 @@
-class CommentsController < Spree::BaseController
-  before_filter :load_post, :only => [:new, :create]
+class Spree::CommentsController < Spree::StoreController
+  before_filter :load_post, only: [:new, :create]
 
   def new
-    @comment = Comment.new
+    @comment = Spree::Comment.new
   end
 
   def create
     @comment = @post.comments.build(params[:comment])
-    @comment.user = current_user
+    @comment.user = spree_current_user
     if @comment.save
-      flash[:notice] = I18n.t(:created_successfully_pending_approval)
+      flash[:notice] = Spree.t(:created_successfully_pending_approval)
       redirect_to post_path(@post)
     else
-      render 'new'
+      render :new
     end
   end
 
-private
+  private
+
   def load_post
-    @post = Post.find_by_permalink(params[:post_id])
+    @post = Spree::Post.find_by_permalink(params[:post_id])
   end
 end

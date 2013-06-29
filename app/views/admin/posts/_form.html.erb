@@ -1,39 +1,39 @@
-<%= render "shared/error_messages", :target => f.object %>
+<%= render 'spree/shared/error_messages', target: f.object %>
 
 <div id="images" style="display:none">
   <% f.object.images.each do |image| %>
-    <%= image_tag image.attachment.url(:large), :alt => image.alt %>
+    <%= image_tag image.attachment.url(:large), alt: image.alt %>
   <% end %>
 </div>
 
 <fieldset>
-    <%= f.field_container :title do %>
-        <%= f.label :title, t("title") %> <span class="required">*</span><br />
-        <%= f.text_field :title, :class => 'fullwidth title'  %>  
-        <%= f.error_message_on :title %>
-    <% end %>
-    <%= f.field_container :tag_list do %>
-      <%= f.label :tag_list, t("tags") %> <span class="small"><%= t("comma_seperated") %><span>
-        <%= f.text_field :tag_list, :class => 'fullwidth'  %>  
-        <%= f.error_message_on :tags %>
-    <% end %>
-    <%= f.field_container :body do %>
-        <%= f.label :body, t("body") %>
-        <%= f.text_area :body, :class => 'fullwidth editor'  %>  
-        <%= f.error_message_on :body %>
-    <% end %>
-    <%= f.field_container :publish do %>
-        <%= f.check_box :publish  %>  
-        <%= f.label :publish, t("publish") %>
-        <%= f.error_message_on :publish %>
-    <% end %>
-    <h2><%= t("metadata") %></h2>
-    <p> 
-      <%= f.label :meta_keywords, t("meta_keywords")%><br />
-      <%= f.text_field :meta_keywords, :class => 'fullwidth' %>
-    </p>
-    <p> 
-      <%= f.label :meta_description, t("meta_description")%><br />
-      <%= f.text_field :meta_description, :class => 'fullwidth' %>
-    </p>
+  <%= f.field_container :title do %>
+      <%= f.label :title, Spree.t(:title) %> <span class="required">*</span><br />
+      <%= f.text_field :title, class: 'fullwidth title'  %>
+      <%= f.error_message_on :title %>
+  <% end %>
+  <%= f.field_container :tag_list do %>
+    <%= f.label :tag_list, Spree.t(:tags) %> <span class="small"><%= Spree.t(:comma_seperated) %><span>
+      <%= f.text_field :tag_list, class: 'fullwidth'  %>
+      <%= f.error_message_on :tags %>
+  <% end %>
+  <%= f.field_container :body do %>
+      <%= f.label :body, Spree.t(:body) %>
+      <%= f.text_area :body, class: 'fullwidth editor' %>
+      <%= f.error_message_on :body %>
+  <% end %>
+  <%= f.field_container :publish do %>
+      <%= f.check_box :publish  %>
+      <%= f.label :publish, Spree.t(:publish) %>
+      <%= f.error_message_on :publish %>
+  <% end %>
+  <h2><%= Spree.t(:metadata) %></h2>
+  <p>
+    <%= f.label :meta_keywords, Spree.t(:meta_keywords) %><br />
+    <%= f.text_field :meta_keywords, class: 'fullwidth' %>
+  </p>
+  <p>
+    <%= f.label :meta_description, Spree.t(:meta_description) %><br />
+    <%= f.text_field :meta_description, class: 'fullwidth' %>
+  </p>
 </fieldset>

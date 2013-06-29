@@ -3,6 +3,7 @@
 <% content_for(:head) do %>
   <%= stylesheet_link_tag 'blog' %>
 <% end %>
+
 <% content_for(:sidebar) do %>
   <%= render 'sidebar' %>
 <% end %>
@@ -12,21 +13,19 @@
 
   <% @posts.each do |post| %>
     <div class="post">
-      <span class="date"> <%= post.published_on.to_date.strftime '%A, %B %d, %Y' %> </span>
+      <span class="date"><%= post.published_on.to_date.strftime '%A, %B %d, %Y' %></span>
       <h2><%= link_to post.title, post_path(post) %></h2>
       <div class="body">
         <%= markdown post.body %>
       </div>
       <div class="info">
         Posted <%= time_ago_in_words post.published_on %> ago
-        <%= link_to t("comments"), "#{post_path(post)}#comments" %>
+        <%= link_to Spree.t(:comments), "#{post_path(post)}#comments" %>
         <br/>
-        <%= render 'tags', :tags => post.tags %>
+        <%= render 'tags', tags: post.tags %>
       </div>
-      <hr/>
+      <hr>
     </div>
   <% end %>
-  <%= will_paginate(@posts,
-                       :previous_label => "&#171; #{t('previous')}",
-                       :next_label => "#{t('next')} &#187;") %>
+  <%= will_paginate(@posts, previous_label: "&#171; #{Spree.t(:previous)}", next_label: "#{Spree.t(:next)} &#187;") %>
 </div>

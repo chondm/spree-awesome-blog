@@ -4,6 +4,7 @@
 <% content_for(:head) do %>
   <%= stylesheet_link_tag 'blog' %>
 <% end %>
+
 <% content_for(:sidebar) do %>
   <%= render 'sidebar' %>
 <% end %>
@@ -15,18 +16,20 @@
     <%= markdown @post.body %>
   </div>
   <div id="tags">
-    <%= render 'tags', :tags => @post.tags %>
+    <%= render 'tags', tags: @post.tags %>
   </div>
   <div id="date">
     Posted <%= time_ago_in_words @post.published_on %> ago
   </div>
 
   <div id="comments">
-    <h2><%= t("comments") %></h2>
+    <h2><%= Spree.t(:comments) %></h2>
     <% @post.comments.approved.each do |comment| %>
       <div class="comment">
         <p class="info">
-        Posted by <b><%= comment.url.blank? ? comment.name : link_to(comment.name, comment.url) %></b> <%= time_ago_in_words comment.created_at %> ago
+        Posted by
+        <b><%= comment.url.blank? ? comment.name : link_to(comment.name, comment.url) %></b>
+        <%= "#{time_ago_in_words comment.created_at} #{Spree.t(:ago)}" %>
         </p>
         <div>
         <%= markdown comment.message %>
@@ -35,9 +38,9 @@
       </div>
     <% end %>
     <div id="new-comment">
-      <p><%= t('comment_on_post') %></p>
+      <p><%= Spree.t(:comment_on_post) %></p>
 
-      <%= render 'comments/form', :comment => @post.comments.new, :post => @post %>
+      <%= render 'comments/form', comment: @post.comments.new, post: @post %>
     </div>
   </div>
 </div>
